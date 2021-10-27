@@ -21,16 +21,20 @@ public class Project2 {
 
   /**
   * This is the main driver of the employee project.
+  * 
+  * @param theArgs to process methods
   */
   public static void main(String[] theArgs) {
     Scanner console = new Scanner(System.in);
-    getEmployeeCnt(console);
+    int employeeCnt = getEmployeeCnt(console);
+    processEmployeePay(console, employeeCnt);
   }
 
   /**
   * Asks a user to enter the number of employee.
-  * @param theConsole a Scanner object.
-  * @return Returns the number of employee that was entered.
+  * 
+  * @param theConsole to prompt for number of employees
+  * @return the number of employees
   */
   public static int getEmployeeCnt(Scanner theConsole) {
     System.out.println("How many employees are there?");
@@ -39,9 +43,11 @@ public class Project2 {
   }
 
   /**
-  * Processes the pay of the employee.
-  * @param theConsole The scanner imported from the Scanner
-  * @param theEmployeeCnt The number of employee that the user enters.
+  * Continues to process the total pay for each employees
+  * until all employees are processed.
+  * 
+  * @param theConsole to prompt for inputs to the questions
+  * @param theEmployeeCnt the number of times to process the pay
   */
   public static void processEmployeePay(Scanner theConsole, int theEmployeeCnt) {
     for (int employee = 1; employee <= theEmployeeCnt; employee++) {
@@ -57,11 +63,12 @@ public class Project2 {
   }
   
   /**
-  * This method calculates the employee's pay accounting for
-  * the overtime pay.
-  * @param theHours The number of hours the employee worked.
-  * @param thePayRate The employee's pay rate.
-  * @return The weekly gross pay.
+  * Calculates the employee's pay that also accounts 
+  * for the overtime pay.
+  * 
+  * @param theHours The number of hours the employee worked
+  * @param thePayRate The employee's pay rate
+  * @return The weekly gross pay
   */
   public static double getGrossPay(double theHours, double thePayRate) {
     double result = 0.00;
@@ -78,20 +85,20 @@ public class Project2 {
   }
   
   /**
-  * This method calculates the employee's pay
-  * that is worked less than 40 hours.
-  * @param theHours The number of hours the employee worked.
-  * @param thePayRate The employee's pay rate.
-  * @return The weekly gross pay.
+  * Calculates the pay that is worked less than 40 hours.
+  *
+  * @param theHours The number of hours the employee worked
+  * @param thePayRate The employee's pay rate
+  * @return The weekly gross pay
   */
   public static double under40 (double theHours, double thePayRate) {
     return theHours * thePayRate;
   }
 
   /**
-  * This method calculates the employee's pay
-  * that is worked less than 48 hours.
-  * @param theHours The number of hours the employee worked.
+  * Calculates the pay that is worked less than 48 hours.
+  *
+  * @param theHours The number of hours the employee worked
   * @param thePayRate The employee's pay rate.
   * @return The weekly gross pay.
   */
