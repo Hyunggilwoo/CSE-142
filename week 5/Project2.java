@@ -42,13 +42,13 @@ public class Project2 {
     return EmployeeCnt;
   }
 
-//   /**
-//   * Continues to process the total pay for each employees
-//   * until all employees are processed.
-//   * 
-//   * @param theConsole to prompt for inputs to the questions
-//   * @param theEmployeeCnt the number of times to process the pay
-//   */
+   /**
+   * Continues to process the total pay for each employees
+   * until all employees are processed.
+   * 
+   * @param theConsole to prompt for inputs to the questions
+   * @param theEmployeeCnt the number of times to process the pay
+   */
 //   public static void processEmployeePay(Scanner theConsole, int theEmployeeCnt) {
 //     for (int employee = 1; employee <= theEmployeeCnt; employee++) {
 //       System.out.println("Employee Name: ");
