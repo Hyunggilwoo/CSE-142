@@ -15,7 +15,7 @@ import java.util.Scanner;
 * the for loop table to draw the output of this ASCII art.
 *
 * @author Hyunggil Woo
-* @version 2021/10/25
+* @version 2021/11/03
 */
 public class Project2 {
 
@@ -26,6 +26,7 @@ public class Project2 {
   */
   public static void main(String[] theArgs) {
     Scanner console = new Scanner(System.in);
+//     calculatePay(console);   
     int employeeCnt = getEmployeeCnt(console);
     processEmployeePay(console, employeeCnt);
   }
@@ -37,7 +38,7 @@ public class Project2 {
   * @return the number of employees
   */
   public static int getEmployeeCnt(Scanner theConsole) {
-    System.out.println("How many employees are there?");
+    System.out.print("How many employees are there?");
     int EmployeeCnt = theConsole.nextInt();
     return EmployeeCnt;
   }
@@ -49,50 +50,57 @@ public class Project2 {
    * @param theConsole to prompt for inputs to the questions
    * @param theEmployeeCnt the number of times to process the pay
    */
-  public static void processEmployeePay(Scanner theConsole, int theEmployeeCnt) {
-
-    for (int employee = 1; employee <= theEmployeeCnt; employee++) {
-      System.out.print("Enter Hours Worked, Pay Rate, and Employee name separated by a space:  ");
-      double hours = theConsole.nextInt();
-      double payRate = theConsole.nextInt();
-      String name = theConsole.next();
-      double grossPay = getGrossPay(hours, payRate);
-      
-      displayEmployeePay(name, hours, payRate, grossPay);
-      displayTopEmployee(name, hours);
-    }
+    public static void processEmployeePay(Scanner theConsole, int theEmployeeCnt) {
+        double mostHours = 0;
+        String mostHoursEmployee = "";
+        for (int employee = 1; employee <= theEmployeeCnt; employee++) {
+            System.out.print("Enter Hours Worked, Pay Rate, and Employee name separated by a space:  ");
+            double hours = theConsole.nextDouble();
+            double payRate = theConsole.nextDouble();
+            String name = theConsole.nextLine();
+            double grossPay = getGrossPay(hours, payRate);
+            
+            if (hours > mostHours) {
+                mostHours = hours;
+                mostHoursEmployee = name;
+            }
+                
+            displayEmployeePay(name, hours, payRate, grossPay);
+        }
+        displayTopEmployee(mostHoursEmployee, mostHours);
   }
   
-  public static void displayTopEmployee(String theName, double theHours) {
-    double mostHours = 0;
-    String topEmployee = "";
-    if (theHours > 56.0) {
-      mostHours = theHours;
-      topEmployee = theName;
-      System.out.println("More than 56 hours:  WOW!!!" + 
-                        "What a Dynamo! " + topEmployee + 
-                        " Worked " + mostHours + " Hours this WEEK!");
-    } else if (theHours > 48) {
-      mostHours = theHours;
-      topEmployee = theName;
-      System.out.println("More than 48 hours:  " + topEmployee + 
-                        " is Such a WorkHorse! " + 
-                        "Looks Like You Worked " + mostHours + 
-                        " Hours this WEEK!");
-    } else if (theHours > 40) {
-      mostHours = theHours;
-      topEmployee = theName;
-      System.out.println("More than 40 hours:  Well, Good For YOU " + 
-                        topEmployee + ", Who Worked " + mostHours + 
-                        " Hours this WEEK!");
-    } else {
-      mostHours = theHours;
-      topEmployee = theName;
-      System.out.println("Most hours but no one worked over 40 " + 
-                        topEmployee + " Worked " + mostHours + 
-                        " Hours this WEEK!");                   
+    public static void displayTopEmployee(String theName, double theHours) {
+        System.out.println();
+        double mostHours = 0;
+        String topEmployee = "";
+        if (theHours > 56.0) {
+            mostHours = theHours;
+            topEmployee = theName;
+            System.out.println("More than 56 hours:  WOW!!! " + 
+                                "What a Dynamo! " + topEmployee + 
+                                " Worked " + mostHours + " Hours this WEEK!");
+        } else if (theHours > 48) {
+            mostHours = theHours;
+            topEmployee = theName;
+            System.out.println("More than 48 hours:  " + topEmployee + 
+                                " is Such a WorkHorse! " + 
+                                "Looks Like You Worked " + mostHours + 
+                                " Hours this WEEK!");
+        } else if (theHours > 40) {
+            mostHours = theHours;
+            topEmployee = theName;
+            System.out.println("More than 40 hours:  Well, Good For YOU " + 
+                            topEmployee + ", Who Worked " + mostHours + 
+                                " Hours this WEEK!");
+        } else {
+            mostHours = theHours;
+            topEmployee = theName;
+            System.out.println("Most hours but no one worked over 40: " + 
+                            topEmployee + " Worked " + mostHours + 
+                            " Hours this WEEK!");                   
+        }
     }
-  }
    
   /**
   * 
@@ -103,10 +111,11 @@ public class Project2 {
   */
   public static void displayEmployeePay(String theName, double theHours,
                                         double thePayRate, double theGrossPay) {
-    System.out.println("Employee Name: " + theName);
-    System.out.println("Hourw worked: " + theHours);
-    System.out.println("Pay Rate: " + thePayRate);
-    System.out.println("Gross Pay: " + theGrossPay);
+    System.out.println(String.format("%27s", "Employee Name:") + theName);
+    System.out.println(String.format("%27s", "Hours Worked:") + String.format("%13.2f", theHours));
+    System.out.println(String.format("%27s", "Pay Rate:") + String.format("%13.2f", thePayRate));
+    System.out.println(String.format("%27s", "Gross Pay:") + String.format("$%,12.2f", theGrossPay));
+    System.out.println();
   }
   
   /**
@@ -117,19 +126,47 @@ public class Project2 {
   * @param thePayRate The employee's pay rate
   * @return The weekly gross pay
   */
-  public static double getGrossPay(double theHours, double thePayRate) {
-    double result = 0.00;
-    if (theHours <= 40.00) {
-      result = under40(theHours, thePayRate);
+//   public static double getGrossPay(double theHours, double thePayRate) {
+//     double pay = 0.00;
+//     if (theHours <= 40.00) {
+//       pay = under40(theHours, thePayRate);
+//     } else if (theHours <= 48.00) {
+//       pay = under48(theHours, thePayRate);
+//     } else {
+//       pay = over48(theHours, thePayRate);
+//     }
+//         pay = calculatePay
+//     return pay;
+//   }
+
+    public static double getGrossPay(double theHours, double thePayRate) {
+        double pay = 0.00;
+        if (theHours <= 40.00) {
+            pay = under40(theHours, thePayRate);
+        } else if (theHours <= 48.00) {
+            pay = under48(theHours, thePayRate);
+        } else {
+            pay = over48(theHours, thePayRate);
+        }
+//             String grossPay = calculatePay(pay);
+        return pay;
     }
-    else if (theHours > 40.00 && theHours <= 48.00) {
-      result = (theHours - 40.00) * 1.5 * thePayRate + 40 * thePayRate;
-    } else {
-      result = (theHours - 48) * 2 * thePayRate + (theHours - 40.00) * 1.5 * thePayRate + 40 * thePayRate;
-    }
-    return result;
-  }
-  
+
+//     // Write a static method called digitSum that takes an
+//     // integer n as a parameter and that returns the sum of the
+//     // digits of n.  You may assume n is not negative.
+//     public static String calculatePay(double thePay) {
+//         String sum = "";
+//         while (thePay > 1000) {
+// 
+//             String digit = (int) thePay / 1000 + ",";
+// //             String digit = "," + thePay % 1000;
+//             thePay = thePay % 1000;
+//             sum += digit;
+//         }
+//         return sum;
+//     }  
+         
   /**
   * Calculates the pay that is worked less than 40 hours.
   *
@@ -137,7 +174,7 @@ public class Project2 {
   * @param thePayRate The employee's pay rate
   * @return The weekly gross pay
   */
-  public static double under40 (double theHours, double thePayRate) {
+  public static double under40(double theHours, double thePayRate) {
     return theHours * thePayRate;
   }
 
@@ -148,9 +185,15 @@ public class Project2 {
   * @param thePayRate The employee's pay rate.
   * @return The weekly gross pay.
   */
-  public static double under48 (double theHours, double thePayRate) {
-    double result = under40(theHours, thePayRate);
-    result += (theHours - 40.00) * 1.5 * thePayRate;
-    return result;
+  public static double under48(double theHours, double thePayRate) {
+    double pay = under40(theHours, thePayRate);
+    pay += (theHours - 40.00) * 1.5 * thePayRate;
+    return pay;
+  }
+  
+  public static double over48(double theHours, double thePayRate) {
+    double pay = under48(theHours, thePayRate);
+    pay += (theHours - 48.00) * 2 * thePayRate;
+    return pay;
   }
 }
