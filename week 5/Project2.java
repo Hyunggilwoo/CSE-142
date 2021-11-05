@@ -58,12 +58,10 @@ public class Project2 {
             double payRate = theConsole.nextDouble();
             String name = theConsole.nextLine();
             double grossPay = getGrossPay(hours, payRate);
-            
             if (hours > mostHours) {
                 mostHours = hours;
                 mostHoursEmployee = name;
-            }
-                
+            }    
             displayEmployeePay(name, hours, payRate, grossPay);
         }
         displayTopEmployee(mostHoursEmployee, mostHours);
