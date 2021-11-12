@@ -2,6 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class Names {
+
+    public static final int NUMBER-OF-DECADES = 14;
+    
     public static void main(String[] theArgs) throws FileNotFoundException {
         Scanner input = new Scanner(new File("names.txt"));
         Scanner console = new Scanner(System.in);
@@ -37,7 +40,9 @@ public class Names {
         return "";
     }
     
-        
+    public static ?? print(String line) {
+        Scanner data = new Scanner(line);
+    }    
     
     
     /**
