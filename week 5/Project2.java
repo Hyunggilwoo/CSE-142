@@ -15,14 +15,14 @@ import java.util.Scanner;
 * the for loop table to draw the output of this ASCII art.
 *
 * @author Hyunggil Woo
-* @version 2021/11/04
+* @version 2021/11/08
 */
 public class Project2 {
 
     /**
-    * This is the main driver of the employee project.
+    * Main method
     * 
-    * @param theArgs to process methods
+    * @param receives the command line data
     */
     public static void main(String[] theArgs) {
         Scanner console = new Scanner(System.in);   
@@ -104,7 +104,8 @@ public class Project2 {
                             " Hours this WEEK!");                   
         }
     }
-   
+    
+    
     /**
     * Displays the name, the hours worked, the pay rate, and
     * the gross pay of an employee. 
@@ -119,7 +120,8 @@ public class Project2 {
         System.out.println(String.format("%27s", "Employee Name:") + theName);
         System.out.println(String.format("%27s", "Hours Worked:") + String.format("%13.2f", theHours));
         System.out.println(String.format("%27s", "Pay Rate:") + String.format("%13.2f", thePayRate));
-        System.out.println(String.format("%27s", "Gross Pay:") + String.format("$%,12.2f", theGrossPay));
+        System.out.printf("%27s", "Gross Pay:");
+        System.out.printf(String.format("%13s", String.format("$%,.2f", theGrossPay)));         
         System.out.println();
     }
     
