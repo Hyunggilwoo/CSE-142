@@ -3,7 +3,7 @@ import java.io.*;
 
 public class Names {
 
-    public static final int NUMBER-OF-DECADES = 14;
+    public static final int NUMBER_OF_DECADES = 14;
     
     public static void main(String[] theArgs) throws FileNotFoundException {
         Scanner input = new Scanner(new File("names.txt"));
@@ -14,7 +14,12 @@ public class Names {
         System.out.print("sex (M or F) ? ");
         String sex = console.next();
         String line = find(input, name, sex);
-        System.out.println(line);
+        if (line.length() > 0) {
+             print(line);
+
+        } else {
+            System.out.println("name/sex combination not found");
+        }
     }
     
     /**
@@ -27,23 +32,32 @@ public class Names {
     * @return the line (if there is one)
     */
     public static String find(Scanner input, String name, String sex) {
-        while (input.hasNext()) { //!line.equals("")
-            String token1 = input.next();
-            String token2 = input.next();
-            String ranks = input.nextLine();
+        while (input.hasNextLine()) { //!line.equals("")
+            String line = input.nextLine();
+//             String ranks = input.nextLine();
             
-            if (token1.toLowerCase().equals(name.toLowerCase())
-                && token2.toLowerCase().equals(sex.toLowerCase())) {
-                return token1 + " " + token2 + ranks;
+            if (line.toLowerCase().contains(name.toLowerCase())
+                && line.toLowerCase().contains(sex.toLowerCase())) {
+                return line;
             }  
         }
         return "";
     }
     
-    public static ?? print(String line) {
-        Scanner data = new Scanner(line);
-    }    
-    
+    // Prints the ranks of the popular name in each decade
+       
+    public static void print(String theLine) {
+        Scanner data = new Scanner(theLine);
+        int year = 1880;
+        String name = data.next();
+        String sex = data.next();
+        String totalRank = "";
+        for (int num = 0; num < NUMBER_OF_DECADES; num++) {
+            int rank = data.nextInt();
+            year+=10;
+            System.out.print( "(" + name + ", " + year + ", " + rank + ") ");
+        }
+    }
     
     /**
     * Introduces the game to the user.
