@@ -40,12 +40,18 @@ public class Names {
     * @return the line (if there is one)
     */
     public static String find(Scanner input, String theName, String theSex) {
-        while (input.hasNextLine()) { //!line.equals("")
-            String line = input.nextLine();
+        while (!input.equals("")) { // input.hasNext()
+            String line = "";
+            String name = input.next();
+            String sex = input.next();
 //             String ranks = input.nextLine();
-            if (line.toLowerCase().contains(theName.toLowerCase())
-                && line.toLowerCase().contains(theSex.toLowerCase())) {
-                return line;
+            if (name.toLowerCase().equals(theName.toLowerCase())
+                && sex.toLowerCase().equals(theSex.toLowerCase())) {
+                while (!input.equals("")) {
+                    String ranks = input.next();
+                    line = ranks + " ";
+                }
+                return name + " " + sex + " " + line;
             }  
         }
         return "";
