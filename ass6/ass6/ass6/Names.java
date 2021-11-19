@@ -1,6 +1,21 @@
+/*
+* Course: CSE 142 – Introduction to Object-Oriented Programming
+* File Name: Names.java
+* Due Date: November 30, 2021
+* Instructor: Professor Stuart Reges
+*/
+
 import java.util.*;
 import java.io.*;
 import java.awt.*;
+
+/**
+* This program prints a line graph of a baby names based on their popularity
+* from 1880 to 2010. 
+*
+* @author Hyunggil Woo
+* @version 2021/11/17
+*/
 
 public class Names {
 
@@ -11,7 +26,7 @@ public class Names {
     public static final int HORIZONTAL_WIDTH = 70;
     
     public static void main(String[] theArgs) throws FileNotFoundException {
-        Scanner input = new Scanner(new File("names2.txt")); //"names2.txt"
+        Scanner input = new Scanner(new File("names2.txt")); //"names.txt"
         Scanner console = new Scanner(System.in);
         intro();
         System.out.print("name? ");
