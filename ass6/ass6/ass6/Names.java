@@ -11,7 +11,8 @@ import java.awt.*;
 
 /**
 * This program prints a line graph of a baby names based on their popularity
-* from 1880 to 2010. 
+* from the first year set at either 1880 or 1920 to 2010.
+*  
 *
 * @author Hyunggil Woo
 * @version 2021/11/17
@@ -27,6 +28,13 @@ public class Names {
     
     public static final int HEIGHT = 550;
     
+    /**
+    * Runs the methods of the program. To find the popular baby names
+    * since 1880, scan the names.txt. To find the names since 1920, use
+    * the names2.txt.
+    *
+    *
+    */
     public static void main(String[] theArgs) throws FileNotFoundException {
         Scanner input = new Scanner(new File("namesWithS.txt")); //"names.txt"
         Scanner console = new Scanner(System.in);
@@ -74,21 +82,6 @@ public class Names {
         return "";
     }
     
-//     // Prints the ranks of the popular name in each decade
-//        
-//     public static void print(String theLine) {
-//         Scanner data = new Scanner(theLine);
-//         int year = FIRST_YEAR - 10;
-//         String name = data.next();
-//         String sex = data.next();
-//         String totalRank = "";
-//         for (int num = 0; num < NUMBER_OF_DECADES; num++) {
-//             int rank = data.nextInt();
-//             year+=10;
-//             System.out.print( "(" + name + " " + sex + " " + year + ", " + rank + ") ");
-//         }
-//     }
-    
     /*
     *  Pre: The first token is a string of a name, the second token is either
     *  M or F, then the rest of the tokens in the line should be integers 
@@ -112,31 +105,28 @@ public class Names {
         String totalRank = "";
         while (data.hasNext()) {
             int rank = data.nextInt();
-            // fencepost: 
-            g.drawLine(0, 0, 0, HEIGHT);
-            g.drawString(String.valueOf(year), 0, HEIGHT);
+            // fencepost:
+            printVerticalLine(g, 0); 
+            printYears(g, year, 0, HEIGHT);
             nameLabel(g, name, sex, rank, 0); // printing the first vertical line
-//             g.drawString(name + " " + sex + " " + rank, 0, findY(rank));
             int temp = findY(rank); // value used to connect values on a line      
             for (int num = 1; num < NUMBER_OF_DECADES; num++) {
                 rank = data.nextInt();
-                year+=10; 
-                g.drawLine(HORIZONTAL_WIDTH * num, 0, HORIZONTAL_WIDTH * num, HEIGHT);
+                year+=10;
+                printVerticalLine(g, HORIZONTAL_WIDTH * num); 
+                // connects a diagonal line between two adjacent points
                 g.drawLine(HORIZONTAL_WIDTH * (num - 1), temp, HORIZONTAL_WIDTH * num, findY(rank)); 
                 temp = findY(rank); // reassigning temp to the rank in a previous line
-                g.drawString(String.valueOf(year), HORIZONTAL_WIDTH * num, HEIGHT);
+                printYears(g, year, HORIZONTAL_WIDTH * num, HEIGHT);
                 nameLabel(g, name, sex, rank, HORIZONTAL_WIDTH * num);     
             } 
-
         } 
-        
     }
     
     /**
     * Draws a bottom border and the top border on the graph.
     *
     * @param g graphics drawingPanel object
-    *
     */
     public static void drawBorders(Graphics g) {
         g.drawLine(0, 25, NUMBER_OF_DECADES * HORIZONTAL_WIDTH, 25);
@@ -146,6 +136,7 @@ public class Names {
     
     /**
     * Prints the name, sex, rank of the name on a graph.
+    * 
     * @requires only num >= 0 
     * @param g is a drawingPanel object
     * @param num is the location of x axis on the graph
@@ -156,6 +147,27 @@ public class Names {
     public static void nameLabel(Graphics g, String name, String sex, 
                                                     int rank, int num) {
         g.drawString(name + " " + sex + " " + rank, num, findY(rank));
+    }
+    
+    /**
+    * Print the years when the data was collected on the x axis
+    * 
+    * @param g DrawingPanel
+    * @param year of the data
+    * @param width location on the x axis
+    * @param height of the y axis
+    */
+    public static void printYears(Graphics g, int year, int xAxis, int height) {
+        g.drawString(String.valueOf(year), xAxis, height);
+    }
+    
+    /**
+    * Prints vertical line on a given width.
+    *
+    * @param xAxis the place to print
+    */
+    public static void printVerticalLine(Graphics g, int xAxis) {
+        g.drawLine(xAxis, 0, xAxis, HEIGHT);
     }
     
     /**
@@ -174,9 +186,8 @@ public class Names {
         return result; 
     }
 
-    
     /**
-    * Introduces the game to the user.
+    * Introduces the naming searching program to the user.
     */
     public static void intro() {
         System.out.println("This program allows you to search " +
