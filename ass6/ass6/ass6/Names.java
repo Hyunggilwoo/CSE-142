@@ -115,7 +115,7 @@ public class Names {
                 year+=10;
                 printVerticalLine(g, HORIZONTAL_WIDTH * num); 
                 // connects a diagonal line between two adjacent points
-                g.drawLine(HORIZONTAL_WIDTH * (num - 1), temp, HORIZONTAL_WIDTH * num, findY(rank)); 
+                printDiagonal(g, num, temp, rank);
                 temp = findY(rank); // reassigning temp to the rank in a previous line
                 printYears(g, year, HORIZONTAL_WIDTH * num, HEIGHT);
                 nameLabel(g, name, sex, rank, HORIZONTAL_WIDTH * num);     
@@ -168,6 +168,22 @@ public class Names {
     */
     public static void printVerticalLine(Graphics g, int xAxis) {
         g.drawLine(xAxis, 0, xAxis, HEIGHT);
+    }
+    
+    /**
+    * Prints a diagonal line between two adjacent points.
+    * 
+    * @param g outputs the DrawingPanel
+    * @param partition the section of a graph
+    * @param temp previous findY(rank) value
+    * @param rank number for the current time 
+    * @requires the set of two adjacent points be separated by
+    * equal length.
+    */
+    public static void printDiagonal(Graphics g, int partition, 
+                                            int temp, int rank) {
+        g.drawLine(HORIZONTAL_WIDTH * (partition - 1), temp, HORIZONTAL_WIDTH 
+                                                * partition, findY(rank));
     }
     
     /**
