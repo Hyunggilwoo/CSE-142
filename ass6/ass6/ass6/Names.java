@@ -19,14 +19,14 @@ import java.awt.*;
 
 public class Names {
 
-    public static final int NUMBER_OF_DECADES = 10; //14 
+    public static final int NUMBER_OF_DECADES = 14; //14 
     
-    public static final int FIRST_YEAR = 1920; //1880
+    public static final int FIRST_YEAR = 1880; //1880
     
     public static final int HORIZONTAL_WIDTH = 70;
     
     public static void main(String[] theArgs) throws FileNotFoundException {
-        Scanner input = new Scanner(new File("names2.txt")); //"names.txt"
+        Scanner input = new Scanner(new File("names.txt")); //"names.txt"
         Scanner console = new Scanner(System.in);
         intro();
         System.out.print("name? ");
@@ -46,15 +46,18 @@ public class Names {
     }
     
     /**
-    * First scanner finds thename in the input text file;
-    * second scanner finds the sex;
-    * third scanner finds the popularity rank
+    *  Pre: Expects the method to return the line that has the name and the sex.
+    *  The method is not parsing through the entire text files. 
+    * 
+    *  Post: Returns a line that contains the name and the sex. This method passes
+    *  the String to find method.
     *
     * @param input scans the entire input file
     * @param the name given to examine
     * @return the line (if there is one)
     */
-    public static String find(Scanner input, String theName, String theSex) {
+    public static String findLine(Scanner input, String theName, 
+                                    String theSex) {
         while (input.hasNextLine()) { //!line.equals("")
             String line = input.nextLine();
             if (line.toLowerCase().contains(theName.toLowerCase())
@@ -62,6 +65,34 @@ public class Names {
                 return line;
             }  
         }
+        return "";
+    }
+
+    /**
+    *  Pre: Accepts a String from a findLine().
+    * 
+    *  Post: Return the correct line of input
+    *  containing the exact name and sex on the line.
+    *
+    * @param scanned line from findLine method
+    * @param the name given to examine
+    * @return the line (if there is one)
+    */    
+    public static String find(Scanner input, String theName, String theSex) {
+        while (input.hasNextLine()) { //!line.equals("")
+            String line = input.nextLine();
+            Scanner console = new Scanner(line);
+            while (console.hasNext()) {
+                String name = console.next();
+                System.out.println(name); //
+                String sex = console.next();
+
+                if (name.toLowerCase().equals(theName.toLowerCase())
+                    && sex.toLowerCase().equals(theSex.toLowerCase())) {
+                        return line;
+                } // {return line 
+            } //{""} 
+        } // {""}
         return "";
     }
     
