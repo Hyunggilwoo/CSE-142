@@ -26,7 +26,7 @@ public class Names {
     public static final int HORIZONTAL_WIDTH = 70;
     
     public static void main(String[] theArgs) throws FileNotFoundException {
-        Scanner input = new Scanner(new File("names.txt")); //"names.txt"
+        Scanner input = new Scanner(new File("namesWithS.txt")); //"names.txt"
         Scanner console = new Scanner(System.in);
         intro();
         System.out.print("name? ");
@@ -78,9 +78,7 @@ public class Names {
     * @param the name given to examine
     * @return the line (if there is one)
     */    
-    public static String find(Scanner input, String theName, String theSex) {
-        while (input.hasNextLine()) { //!line.equals("")
-            String line = input.nextLine();
+    public static String find(String line, String theName, String theSex) {
             Scanner console = new Scanner(line);
             while (console.hasNext()) {
                 String name = console.next();
@@ -92,7 +90,7 @@ public class Names {
                         return line;
                 } // {return line 
             } //{""} 
-        } // {""}
+
         return "";
     }
     
